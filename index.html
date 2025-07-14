@@ -9,10 +9,10 @@
 <body>
     <div id="pantalla-registro" class="pantalla">
         <h1>🎁 Sorteo de Amigo Secreto</h1>
-        <p class="instruccion">Ingresa los nombres de los participantes uno por uno. El PIN es opcional y sirve para mayor privacidad (4 dígitos).</p>
+        <p class="instruccion">Pasa este dispositivo a cada participante. Cada uno debe ingresar su nombre y, si lo desea, un PIN de 4 dígitos para una consulta privada.</p>
         <div class="registro-form">
             <input type="text" id="nombre" placeholder="Nombre del participante" maxlength="30" />
-            <input type="text" id="pin" placeholder="PIN (4 dígitos)" maxlength="4" data-pin-value="" />
+            <input type="text" id="pin" placeholder="PIN (4 dígitos, opcional)" maxlength="4" data-pin-value="" />
             <button id="btnAgregar">+</button>
         </div>
         <ul id="listaParticipantes"></ul>
@@ -35,7 +35,7 @@
         
         <div class="botones-acciones">
             <div class="consulta-botones-usuario">
-                <button id="btnBorrarConsulta">Limpiar Consulta</button>
+                <button id="btnBorrarConsulta">Limpiar para Siguiente</button>
                 <button class="btnReiniciarConfirm">🔄 Reiniciar</button>
             </div>
             <button id="btnAdmin" class="toggleAdmin oculto">🔐 Admin</button>
