@@ -130,6 +130,7 @@ button:hover {
     transition: transform 0.2s ease;
     box-shadow: none; /* Asegurar que no tenga sombra */
     min-width: auto; /* Anula el min-width para este botón específico */
+    width: auto; /* Asegura que no tome el 100% de width */
 }
 
 .remove-btn:hover {
@@ -200,7 +201,7 @@ button:hover {
 
 .participant-item {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* ¡IMPORTANTE! Esto alinea elementos a los extremos */
     align-items: center;
     background-color: white;
     padding: 10px 15px;
@@ -408,13 +409,9 @@ button:hover {
     pointer-events: auto;
 }
 
-/* === NUEVO: Estilos para los campos de PIN para una visualización uniforme de asteriscos === */
+/* === Estilos para los campos de PIN para una visualización uniforme de asteriscos === */
 #pin, #consultaPin {
     font-family: 'monospace', 'Roboto', sans-serif; /* Usar fuente monoespaciada para uniformidad */
-    /* Opcional: ajustar ligeramente el letter-spacing si los asteriscos se ven muy juntos/separados */
-    /* letter-spacing: 1px; */ 
-    /* Esta propiedad es útil para algunos caracteres en fuentes no monoespaciadas, pero monospace es más robusta */
-    /* font-feature-settings: "liga" 0, "clig" 0; */ 
 }
 
 
@@ -479,6 +476,12 @@ button:hover {
         min-width: auto; /* Para que ocupe el 100% en móvil */
     }
 
+    /* === Ajuste CLAVE para el botón 'x' en móvil === */
+    .remove-btn {
+        width: auto; /* Sobreescribe el width: 100% de la regla general de button */
+        margin-left: auto; /* Empuja el botón a la derecha */
+        flex-shrink: 0; /* Asegura que no se encoja si el nombre es muy largo */
+    }
 
     .participant-item {
         padding: 8px 12px;
