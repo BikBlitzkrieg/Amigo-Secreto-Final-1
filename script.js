@@ -153,8 +153,9 @@ function eliminarParticipante(index) {
 
 // === Sorteo ===
 function realizarSorteo() {
-    if (participantes.length < 2) {
-        mostrarMensaje("Debe haber al menos dos participantes para realizar el sorteo.", "error");
+    // CAMBIO CLAVE: Necesitas al menos 3 participantes para evitar ciclos de 2 y auto-regalos
+    if (participantes.length < 3) {
+        mostrarMensaje("Necesitas al menos 3 participantes para realizar un sorteo justo (sin auto-regalos ni intercambios dobles).", "error");
         return;
     }
 
@@ -169,7 +170,8 @@ function realizarSorteo() {
     }
 
     if (intentos === 1000) {
-        mostrarMensaje("No se pudo realizar el sorteo con éxito. Intenta nuevamente.", "error");
+        // Este mensaje ya no debería salir si la validación de length < 3 es correcta
+        mostrarMensaje("No se pudo encontrar una asignación válida después de muchos intentos. Por favor, intenta de nuevo o verifica los participantes.", "error");
         return;
     }
 
@@ -191,6 +193,9 @@ function asignacionValida(originales, asignados) {
         if (originales[i] === asignados[i]) return false;
         
         // 2. Evita ciclos de 2 (A a B y B a A)
+        // Esto es para asegurar que si A regala a B, B no regale a A.
+        // Solo verificamos si el asignado de A (posibles[i]) es el original de B (originales[recipIndex])
+        // Y si el asignado de B (asignados[recipIndex]) es el original de A (originales[i])
         const recipIndex = originales.indexOf(asignados[i]);
         if (recipIndex >= 0 && asignados[recipIndex] === originales[i]) return false;
     }
