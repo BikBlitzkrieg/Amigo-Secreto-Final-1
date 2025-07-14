@@ -1,0 +1,520 @@
+/* Importar fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+
+/* === Variables de Color === */
+:root {
+    /* Verde primario para TODAS las acciones */
+    --primary-color: #4CAF50; /* Un verde vibrante, Material Design Green */
+    --primary-hover: #43A047; /* Un poco más oscuro para el hover */
+    
+    --accent-color: #FF9800; /* Naranja vibrante para resultados */
+    --secondary-color: #6c757d; /* Este color ya no se usará para botones, pero se mantiene para texto instruccional */
+    --secondary-hover: #5a6268; 
+    
+    --background-light: #f8f9fa; /* Fondo suave para elementos */
+    --background-body: #e0f2f7; /* Fondo del body, azul claro */
+    
+    --text-dark: #343a40; /* Texto oscuro principal */
+    --text-light: #f0f2f5; /* Texto claro sobre fondos oscuros */
+    --border-color: #e0e0e0; /* Color de borde general */
+    
+    --danger-color: #dc3545; /* Rojo para errores y eliminar */
+    --success-color: #28a745; /* Verde para mensajes de éxito */
+}
+
+/* === Estilos Globales === */
+* {
+    box-sizing: border-box; /* Asegura que el padding y border no aumenten el tamaño del elemento */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--background-body) 0%, #c8e6c9 100%); /* Degradado suave */
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centra verticalmente en pantallas grandes */
+    min-height: 100vh;
+}
+
+h1, h2 {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 2.2em;
+    margin-bottom: 25px;
+}
+
+/* === Contenedores de Pantalla === */
+.pantalla {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+.pantalla.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none; /* No permite interacciones cuando está oculto */
+    position: absolute; /* Para que no ocupe espacio en el flujo del documento */
+}
+
+/* === Inputs de Formulario === */
+input::placeholder {
+    color: #aaa; /* Color más claro para los placeholders */
+}
+
+input {
+    flex-grow: 1; /* Permite que los inputs se expandan en flexbox */
+    padding: 12px 15px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    outline: none; /* Remueve el contorno por defecto al enfocar */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); /* Sombra suave al enfocar */
+}
+
+/* === Estilo Base de Botones (TODO UNIFORME) === */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    flex-shrink: 0; /* Evita que los botones se encojan en flexbox */
+    
+    /* Aplicar color primario (VERDE) a TODOS los botones por defecto */
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+    /* === Uniformidad de tamaño === */
+    min-width: 120px; /* Ancho mínimo para la mayoría de los botones */
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de eliminar (la 'x' en la lista) - excepción a la regla de color y tamaño */
+.remove-btn {
+    background: none; /* Sin fondo */
+    border: none;
+    color: var(--danger-color); /* Color rojo para eliminar */
+    font-size: 1.5em; 
+    cursor: pointer;
+    padding: 0 8px; 
+    transition: transform 0.2s ease;
+    box-shadow: none; /* Asegurar que no tenga sombra */
+    min-width: auto; /* Anula el min-width para este botón específico */
+}
+
+.remove-btn:hover {
+    transform: scale(1.2); 
+}
+
+
+/* === Layout de Formularios === */
+.registro-form {
+    display: flex;
+    align-items: center; /* Alinea los elementos verticalmente en el centro */
+    gap: 10px; /* Espacio entre los elementos (inputs y botón) */
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan si no hay espacio */
+}
+
+.registro-form input {
+    flex: 1; /* Permite que los inputs crezcan y ocupen el espacio disponible */
+    min-width: 150px; /* Asegura que no se hagan demasiado pequeños */
+    margin-bottom: 0; /* Elimina cualquier margen inferior por defecto */
+}
+
+.registro-form #btnAgregar {
+    width: 50px; /* Ancho fijo para el botón '+' para que siempre sea un cuadrado */
+    height: 50px; /* Altura fija */
+    padding: 0; /* Eliminar padding para que el '+' sea el centro */
+    font-size: 2em; /* Tamaño grande para el '+' */
+    line-height: 1; /* Alinea el '+' verticalmente */
+    display: flex; /* Usar flex para centrar el '+' */
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Hacerlo circular */
+    /* El color ya se aplica desde la regla base de 'button' */
+    min-width: 50px; /* Asegurar que mantenga su tamaño fijo y no sea afectado por el min-width global */
+}
+
+.registro-form #btnAgregar:hover {
+    transform: translateY(-2px) scale(1.05); /* Efecto de levantamiento y ligero agrandamiento */
+}
+
+/* Formulario de Consulta */
+.consulta-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+
+/* === Lista de Participantes === */
+.instruccion {
+    font-size: 0.95em;
+    color: var(--secondary-color);
+    margin-bottom: 25px;
+}
+
+#listaParticipantes {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    max-height: 250px; /* Limita la altura de la lista */
+    overflow-y: auto; /* Habilita scroll si hay muchos participantes */
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--background-light);
+}
+
+.participant-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    animation: fadeInItem 0.4s ease-out; /* Animación al añadir */
+}
+
+.participant-item:last-child {
+    margin-bottom: 0; /* Elimina el margen inferior del último ítem */
+}
+
+@keyframes fadeInItem {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Resultado de Consulta === */
+.resultado {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5em; /* Grande para destacar */
+    font-weight: bold;
+    color: var(--accent-color); /* Color vibrante para el resultado */
+    min-height: 120px; /* Asegura espacio aunque no haya texto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff8e1; /* Fondo suave para el resultado */
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    animation: resultPop 0.7s ease-out; /* Animación al revelar */
+}
+
+.resultado span {
+    color: var(--primary-color); /* Estilo específico para el nombre del amigo secreto */
+}
+
+@keyframes resultPop {
+    0% { opacity: 0; transform: scale(0.8); }
+    70% { opacity: 1; transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* === Botones de Acción Globales (en pantallas) === */
+.botones-acciones {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center; /* Centra los grupos de botones */
+    gap: 15px; /* Espacio entre grupos de botones */
+    flex-wrap: wrap; /* Permite que los grupos se envuelvan si no hay espacio */
+    align-items: flex-start; /* Alinea arriba si los elementos tienen diferente altura */
+}
+
+/* === Estilos para el grupo de botones de usuario en la pantalla de consulta === */
+.consulta-botones-usuario {
+    display: flex;
+    gap: 15px; /* Espacio entre Limpiar Consulta y Reiniciar */
+    flex-wrap: wrap; /* Para que se envuelvan en móvil */
+    justify-content: center; /* Centra los botones dentro de este grupo */
+    flex-grow: 1; /* Permite que ocupe espacio, pero no fuerza el ancho */
+}
+
+/* === Ajuste para el botón Admin (cuando aparece) === */
+#btnAdmin.toggleAdmin:not(.oculto) {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    margin-top: 15px; /* Crea una separación clara arriba */
+    text-align: center; /* Centra el texto del botón si el width es 100% */
+    /* Las propiedades de opacidad y pointer-events ya están en .oculto y su :not() */
+    min-width: auto; /* El botón Admin no necesita un min-width, ya ocupa 100% */
+}
+
+
+/* === Modales === */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none; /* No interactuable cuando oculto */
+    transition: opacity 0.3s ease; /* Transición para el overlay */
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: auto; /* Interactuable cuando activo */
+}
+
+.modal-contenido {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    transform: translateY(-20px); /* Inicia un poco arriba */
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Transición para el contenido */
+}
+
+.modal.active .modal-contenido {
+    transform: translateY(0); /* Vuelve a su posición */
+    opacity: 1;
+}
+
+.modal-botones {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* === Panel de Administrador === */
+#adminPanel h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+#listaResultados {
+    list-style: none;
+    padding: 0;
+    max-height: 300px; /* Limita la altura del scroll */
+    overflow-y: auto;
+    text-align: left;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px 15px;
+    background-color: var(--background-light);
+    margin-bottom: 20px;
+}
+
+#listaResultados li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+    font-size: 1.1em;
+    color: var(--text-dark);
+}
+
+#listaResultados li:last-child {
+    border-bottom: none; /* No hay borde en el último elemento */
+}
+
+/* === Mensajes Flotantes === */
+.mensaje {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px); /* Inicia un poco abajo y oculto */
+    background-color: var(--text-dark); /* Color por defecto */
+    color: var(--text-light);
+    padding: 12px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden; /* Oculto por defecto y no interactuable */
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out;
+}
+
+.mensaje:not(.hidden-message) { /* Usa esta clase para mostrar el mensaje */
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Clases para tipos de mensaje (controladas por JS) */
+.mensaje.error {
+    background-color: var(--danger-color);
+}
+.mensaje.success {
+    background-color: var(--success-color);
+}
+.mensaje.info { /* Para mensajes informativos */
+    background-color: var(--secondary-color);
+}
+
+
+/* === Utilidades (para JS) === */
+/* Clase para ocultar elementos sin transiciones */
+.hidden {
+    display: none;
+}
+
+/* El botón 'Admin' solo se ocultará/mostrará con la clase .oculto */
+.oculto {
+    opacity: 0;
+    pointer-events: none; /* No es clicable cuando está oculto */
+    transition: opacity 0.3s ease; /* Transición suave al aparecer/desaparecer */
+}
+/* Cuando la clase 'oculto' se quita, el botón se hace visible */
+.toggleAdmin:not(.oculto) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* === NUEVO: Estilos para los campos de PIN para una visualización uniforme de asteriscos === */
+#pin, #consultaPin {
+    font-family: 'monospace', 'Roboto', sans-serif; /* Usar fuente monoespaciada para uniformidad */
+    /* Opcional: ajustar ligeramente el letter-spacing si los asteriscos se ven muy juntos/separados */
+    /* letter-spacing: 1px; */ 
+    /* Esta propiedad es útil para algunos caracteres en fuentes no monoespaciadas, pero monospace es más robusta */
+    /* font-feature-settings: "liga" 0, "clig" 0; */ 
+}
+
+
+/* === Media Queries para Responsividad (Smartphones) === */
+@media (max-width: 600px) {
+    body {
+        padding: 15px;
+        align-items: flex-start; /* Para que el contenido no se centre verticalmente y haya scroll */
+    }
+
+    .pantalla {
+        padding: 25px;
+        margin: 10px 0; /* Menos margen vertical */
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    input {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 0.95em;
+        width: 100%; /* Botones ocupan todo el ancho en móvil */
+        margin-bottom: 10px; /* Vuelve el margen inferior para apilar */
+        min-width: auto; /* Desactiva el min-width global en móvil para que width: 100% domine */
+    }
+
+    .botones-acciones {
+        flex-direction: column; /* Apila los grupos de botones */
+        gap: 10px;
+    }
+    
+    /* En móvil, los botones de usuario normal también deben ocupar todo el ancho */
+    .consulta-botones-usuario {
+        flex-direction: column; /* Apila los botones de usuario */
+        gap: 10px;
+        width: 100%; /* Ocupa todo el ancho del contenedor padre */
+    }
+
+    /* Asegurar que el formulario de registro se apile en móvil */
+    .registro-form {
+        flex-direction: column;
+        gap: 10px; /* Mantiene el gap para espaciado */
+        align-items: stretch; /* Estira los elementos a ancho completo */
+    }
+    .registro-form input {
+        margin-right: 0; /* Elimina el margen derecho entre inputs en móvil */
+    }
+    .registro-form #btnAgregar {
+        width: 100%; /* Botón + ocupa el 100% en móvil */
+        height: auto; /* Altura auto para que se ajuste el padding y texto */
+        padding: 12px 20px; /* Vuelve al padding normal de botón */
+        font-size: 1em; /* Tamaño normal de fuente */
+        border-radius: 8px; /* Borde cuadrado */
+        min-width: auto; /* Para que ocupe el 100% en móvil */
+    }
+
+
+    .participant-item {
+        padding: 8px 12px;
+        font-size: 0.95em;
+    }
+
+    .remove-btn {
+        font-size: 1.3em;
+    }
+
+    .resultado {
+        font-size: 2em;
+        min-height: 100px;
+        padding: 15px;
+        margin-top: 25px;
+    }
+
+    .modal-contenido {
+        width: 95%;
+        padding: 25px;
+    }
+
+    .modal-botones {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .mensaje {
+        width: calc(100% - 30px); /* Ajusta al ancho de la pantalla con padding */
+        left: 15px; /* En lugar de 50% y transform, usa un left fijo */
+        transform: none; /* Elimina la transformación para este posicionamiento */
+        bottom: 15px;
+        text-align: center;
+    }
+    /* Para el mensaje, ajusta la animación para que solo aparezca desde abajo */
+    .mensaje:not(.hidden-message) {
+        transform: none;
+    }
+}

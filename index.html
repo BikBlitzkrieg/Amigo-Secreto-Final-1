@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>🎁 Sorteo de Amigo Secreto 🎉</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div id="pantalla-registro" class="pantalla">
+        <h1>🎁 Sorteo de Amigo Secreto</h1>
+        <p class="instruccion">Ingresa los nombres de los participantes uno por uno. El PIN es opcional y sirve para mayor privacidad (4 dígitos).</p>
+        <div class="registro-form">
+            <input type="text" id="nombre" placeholder="Nombre del participante" maxlength="30" />
+            <input type="text" id="pin" placeholder="PIN (4 dígitos)" maxlength="4" data-pin-value="" />
+            <button id="btnAgregar">+</button>
+        </div>
+        <ul id="listaParticipantes"></ul>
+
+        <div class="botones-acciones">
+            <button id="btnSortear">🎲 Realizar Sorteo</button>
+            <button class="btnReiniciarConfirm">🔄 Reiniciar Todo</button>
+        </div>
+    </div>
+
+    <div id="pantalla-consulta" class="pantalla hidden">
+        <h1 id="tituloConsulta">¿A quién le darás el regalo? 🤫</h1>
+        <p class="instruccion">Ingresa tu nombre y PIN (si lo tienes) para descubrir a quien debes regalar.</p>
+        <div class="consulta-form">
+            <input type="text" id="consultaNombre" placeholder="Tu nombre" maxlength="30" />
+            <input type="text" id="consultaPin" placeholder="Tu PIN (si usaste uno)" maxlength="4" data-pin-value="" />
+            <button id="btnConsultar">Consultar Mi Amigo</button>
+        </div>
+        <div id="resultado" class="resultado"></div>
+        
+        <div class="botones-acciones">
+            <div class="consulta-botones-usuario">
+                <button id="btnBorrarConsulta">Limpiar Consulta</button>
+                <button class="btnReiniciarConfirm">🔄 Reiniciar</button>
+            </div>
+            <button id="btnAdmin" class="toggleAdmin oculto">🔐 Admin</button>
+        </div>
+    </div>
+
+    <div id="modalReinicio" class="modal">
+        <div class="modal-contenido">
+            <h2>¿Estás seguro?</h2>
+            <p>Se borrarán todos los participantes y el sorteo. ¡Esta acción no se puede deshacer!</p>
+            <div class="modal-botones">
+                <button id="btnReiniciar">Sí, reiniciar todo</button>
+                <button id="btnCancelarReinicio">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalClaveAdmin" class="modal">
+        <div class="modal-contenido">
+            <h2>Acceso de Administrador</h2>
+            <p>Ingresa la clave de administrador para ver los resultados:</p>
+            <input type="password" id="claveAdmin" placeholder="Clave de Admin" />
+            <div class="modal-botones">
+                <button id="btnValidarClave">Ver Resultados del Sorteo</button>
+                <button id="btnCerrarModalClaveAdmin">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminPanel" class="modal">
+        <div class="modal-contenido">
+            <h2>📋 Resultados del Sorteo</h2>
+            <ul id="listaResultados"></ul>
+            <button id="ocultarAdmin">Cerrar Panel</button>
+        </div>
+    </div>
+
+    <div id="mensaje" class="mensaje hidden-message"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
